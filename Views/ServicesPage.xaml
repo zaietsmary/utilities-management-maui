@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Lab7.Models"
+             x:Class="Lab7.Views.ServicesPage"
+             Title="Послуги"
+             BackgroundColor="#0F172A">
+
+    <Grid RowDefinitions="Auto, Auto, *" Padding="20" RowSpacing="15">
+
+        <VerticalStackLayout Grid.Row="0">
+            <Label Text="⚡ Комунальні послуги" FontSize="26" FontAttributes="Bold" TextColor="White" />
+            <Label Text="Створення, редагування та видалення тарифів" FontSize="14" TextColor="#94A3B8" />
+        </VerticalStackLayout>
+
+        <Border Grid.Row="1" Stroke="#334155" StrokeThickness="1" BackgroundColor="#1E293B" Padding="15">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+            <VerticalStackLayout Spacing="10">
+                <Label x:Name="FormTitleLabel" Text="Додати нову послугу" FontSize="16" FontAttributes="Bold" TextColor="#38BDF8" />
+
+                <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10">
+                    <VerticalStackLayout Grid.Column="0">
+                        <Label Text="Назва послуги" FontSize="12" TextColor="#94A3B8" />
+                        <Entry x:Name="NameEntry" Placeholder="наприклад, Водопостачання" TextColor="White" BackgroundColor="#0F172A" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="За 1 м² (грн)" FontSize="12" TextColor="#94A3B8" />
+                        <Entry x:Name="PriceSqmEntry" Keyboard="Numeric" Placeholder="0.00" TextColor="White" BackgroundColor="#0F172A" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="2">
+                        <Label Text="За 1 особу (грн)" FontSize="12" TextColor="#94A3B8" />
+                        <Entry x:Name="PricePersonEntry" Keyboard="Numeric" Placeholder="0.00" TextColor="White" BackgroundColor="#0F172A" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="End" Margin="0,5,0,0">
+                    <Button x:Name="CancelBtn" Text="Скасувати" Clicked="OnCancelClicked" BackgroundColor="#475569" TextColor="White" IsVisible="False" />
+                    <Button x:Name="SaveBtn" Text="💾 Зберегти зміни" Clicked="OnSaveClicked" BackgroundColor="#0284C7" TextColor="White" IsVisible="False" />
+                    <Button x:Name="AddBtn" Text="➕ Додати послугу" Clicked="OnAddClicked" BackgroundColor="#059669" TextColor="White" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+
+        <CollectionView Grid.Row="2" x:Name="ServicesCollectionView" SelectionMode="None">
+            <CollectionView.EmptyView>
+                <Label Text="Послуг не знайдено або база порожня" TextColor="#64748B" HorizontalOptions="Center" VerticalOptions="Center" Margin="20" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Service">
+                    <Border Stroke="#1E293B" BackgroundColor="#1E293B" StrokeThickness="1" Margin="0,0,0,10" Padding="15">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <Grid ColumnDefinitions="*, Auto, Auto, Auto" ColumnSpacing="15" VerticalOptions="Center">
+
+                            <VerticalStackLayout Grid.Column="0">
+                                <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" TextColor="White" />
+                                <Label Text="{Binding Id, StringFormat='ID: {0}'}" FontSize="11" TextColor="#64748B" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+                                <Label Text="за 1 м²" FontSize="11" TextColor="#94A3B8" />
+                                <Label Text="{Binding PricePerSqm, StringFormat='{0:F2} ₴'}" FontSize="15" FontAttributes="Bold" TextColor="#38BDF8" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="2" HorizontalOptions="End">
+                                <Label Text="за особу" FontSize="11" TextColor="#94A3B8" />
+                                <Label Text="{Binding PricePerPerson, StringFormat='{0:F2} ₴'}" FontSize="15" FontAttributes="Bold" TextColor="#FBBF24" />
+                            </VerticalStackLayout>
+
+                            <HorizontalStackLayout Grid.Column="3" Spacing="5">
+                                <Button Text="✏️" Clicked="OnEditItemClicked" CommandParameter="{Binding .}" BackgroundColor="#334155" TextColor="White" HeightRequest="38" WidthRequest="44" Padding="0" />
+                                <Button Text="🗑️" Clicked="OnDeleteItemClicked" CommandParameter="{Binding .}" BackgroundColor="#DC2626" TextColor="White" HeightRequest="38" WidthRequest="44" Padding="0" />
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

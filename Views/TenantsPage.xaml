@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Lab7.Models"
+             x:Class="Lab7.Views.TenantsPage"
+             Title="Мешканці"
+             BackgroundColor="#0F172A">
+
+    <Grid RowDefinitions="Auto, Auto, *" Padding="20" RowSpacing="15">
+
+        <VerticalStackLayout Grid.Row="0">
+            <Label Text="👥 Мешканці" FontSize="26" FontAttributes="Bold" TextColor="White" />
+            <Label Text="Облік мешканців та власників особових рахунків" FontSize="14" TextColor="#94A3B8" />
+        </VerticalStackLayout>
+
+        <Border Grid.Row="1" Stroke="#334155" StrokeThickness="1" BackgroundColor="#1E293B" Padding="15">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+            <VerticalStackLayout Spacing="10">
+                <Label x:Name="FormTitleLabel" Text="Додати нового мешканця" FontSize="16" FontAttributes="Bold" TextColor="#38BDF8" />
+
+                <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10">
+                    <VerticalStackLayout Grid.Column="0">
+                        <Label Text="Прізвище *" FontSize="12" TextColor="#94A3B8" />
+                        <Entry x:Name="LastNameEntry" Placeholder="Шевченко" TextColor="White" BackgroundColor="#0F172A" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Ім'я *" FontSize="12" TextColor="#94A3B8" />
+                        <Entry x:Name="FirstNameEntry" Placeholder="Тарас" TextColor="White" BackgroundColor="#0F172A" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="2">
+                        <Label Text="По батькові" FontSize="12" TextColor="#94A3B8" />
+                        <Entry x:Name="MiddleNameEntry" Placeholder="Григорович" TextColor="White" BackgroundColor="#0F172A" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="End" Margin="0,5,0,0">
+                    <Button x:Name="CancelBtn" Text="Скасувати" Clicked="OnCancelClicked" BackgroundColor="#475569" TextColor="White" IsVisible="False" />
+                    <Button x:Name="SaveBtn" Text="💾 Зберегти зміни" Clicked="OnSaveClicked" BackgroundColor="#0284C7" TextColor="White" IsVisible="False" />
+                    <Button x:Name="AddBtn" Text="➕ Додати мешканця" Clicked="OnAddClicked" BackgroundColor="#059669" TextColor="White" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+
+        <CollectionView Grid.Row="2" x:Name="TenantsCollectionView" SelectionMode="None">
+            <CollectionView.EmptyView>
+                <Label Text="Мешканців не знайдено або база порожня" TextColor="#64748B" HorizontalOptions="Center" VerticalOptions="Center" Margin="20" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Tenant">
+                    <Border Stroke="#1E293B" BackgroundColor="#1E293B" StrokeThickness="1" Margin="0,0,0,10" Padding="15">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15" VerticalOptions="Center">
+                            <Border Grid.Column="0" HeightRequest="44" WidthRequest="44" BackgroundColor="#334155" StrokeShape="RoundRectangle 22" StrokeThickness="0">
+                                <Label Text="👤" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1">
+                                <Label Text="{Binding FullName}" FontSize="18" FontAttributes="Bold" TextColor="White" />
+                                <Label Text="{Binding Id, StringFormat='Код мешканця: {0}'}" FontSize="12" TextColor="#64748B" />
+                            </VerticalStackLayout>
+
+                            <HorizontalStackLayout Grid.Column="2" Spacing="5">
+                                <Button Text="✏️" Clicked="OnEditItemClicked" CommandParameter="{Binding .}" BackgroundColor="#334155" TextColor="White" HeightRequest="38" WidthRequest="44" Padding="0" />
+                                <Button Text="🗑️" Clicked="OnDeleteItemClicked" CommandParameter="{Binding .}" BackgroundColor="#DC2626" TextColor="White" HeightRequest="38" WidthRequest="44" Padding="0" />
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

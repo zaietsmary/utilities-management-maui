@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Lab7.Models"
+             x:Class="Lab7.Views.BillingPage"
+             Title="Зведений звіт"
+             BackgroundColor="#0F172A">
+
+    <Grid RowDefinitions="Auto, Auto, *" Padding="20" RowSpacing="15">
+
+        <Grid Grid.Row="0" ColumnDefinitions="*, Auto" VerticalOptions="Center">
+            <VerticalStackLayout Grid.Column="0">
+                <Label Text="🧮 Зведений звіт нарахувань" FontSize="26" FontAttributes="Bold" TextColor="White" />
+                <Label Text="Розрахунок вартості комунальних послуг (з Лабораторної №1)" FontSize="14" TextColor="#94A3B8" />
+            </VerticalStackLayout>
+
+            <Button Grid.Column="1" Text="🔄 Оновити" Clicked="OnRefreshClicked" BackgroundColor="#0284C7" TextColor="White" VerticalOptions="Center" />
+        </Grid>
+
+        <Border Grid.Row="1" Stroke="#334155" StrokeThickness="1" BackgroundColor="#1E293B" Padding="20">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+            <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                <VerticalStackLayout Grid.Column="0">
+                    <Label Text="ЗАГАЛЬНА СУМА ДО СПЛАТИ" FontSize="12" FontAttributes="Bold" TextColor="#94A3B8" />
+                    <Label Text="Формула: (Площа × Тариф/м²) + (Мешканці × Тариф/особу)" FontSize="12" TextColor="#64748B" />
+                </VerticalStackLayout>
+
+                <Label Grid.Column="1" x:Name="TotalSumLabel" Text="0.00 ₴" FontSize="28" FontAttributes="Bold" TextColor="#10B981" VerticalOptions="Center" />
+            </Grid>
+        </Border>
+
+        <CollectionView Grid.Row="2" x:Name="BillingCollectionView" SelectionMode="None">
+            <CollectionView.EmptyView>
+                <Label Text="Немає підключених послуг до рахунків для розрахунку" TextColor="#64748B" HorizontalOptions="Center" VerticalOptions="Center" Margin="20" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:BillingReportViewModel">
+                    <Border Stroke="#1E293B" BackgroundColor="#1E293B" StrokeThickness="1" Margin="0,0,0,10" Padding="15">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <Grid ColumnDefinitions="Auto, 2*, 2*, Auto" ColumnSpacing="15" VerticalOptions="Center">
+                            <VerticalStackLayout Grid.Column="0">
+                                <Label Text="РАХУНОК" FontSize="10" TextColor="#94A3B8" />
+                                <Label Text="{Binding AccountNumber}" FontSize="18" FontAttributes="Bold" TextColor="#38BDF8" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1">
+                                <Label Text="{Binding Owner}" FontSize="15" FontAttributes="Bold" TextColor="White" />
+                                <Label Text="{Binding Address}" FontSize="12" TextColor="#94A3B8" LineBreakMode="TailTruncation" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="2">
+                                <Label Text="ПОСЛУГА" FontSize="10" TextColor="#94A3B8" />
+                                <Label Text="{Binding ServiceName}" FontSize="15" FontAttributes="Bold" TextColor="#FBBF24" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="3" HorizontalOptions="End">
+                                <Label Text="ДО СПЛАТИ" FontSize="10" TextColor="#94A3B8" HorizontalOptions="End" />
+                                <Label Text="{Binding TotalAmount, StringFormat='{0:F2} ₴'}" FontSize="18" FontAttributes="Bold" TextColor="#10B981" HorizontalOptions="End" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

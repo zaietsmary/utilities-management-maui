@@ -1,0 +1,50 @@
+## Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Visual Studio
+.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.sln.docstates
+
+## Visual Studio Code
+.vscode/
+
+## JetBrains (Rider)
+.idea/
+*.sln.iml
+
+## .NET MAUI & Mobile specific
+.vs/
+AppPackages/
+BundleArtifacts/
+*.apk
+*.aab
+*.ipa
+*.appx
+*.msix
+*.appxbundle
+*.msixbundle
+
+## NuGet Packages
+*.nuget.props
+*.nuget.targets
+packages/
+
+## Operating System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+## Database local files / backups
+*.bak
+*.mdf
+*.ldf
+

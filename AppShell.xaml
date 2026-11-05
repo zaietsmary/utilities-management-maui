@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Lab7.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Lab7.Views"
+    Title="КомунСервіс"
+    FlyoutBehavior="Flyout">
+
+    <Shell.FlyoutHeader>
+        <Grid HeightRequest="120" BackgroundColor="#1E293B" Padding="20">
+            <VerticalStackLayout VerticalOptions="Center">
+                <Label Text="КомунСервіс" FontSize="22" FontAttributes="Bold" TextColor="White" />
+                <Label Text="Керування комунальними даними" FontSize="12" TextColor="#94A3B8" />
+            </VerticalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="⚡ Комунальні послуги" Route="ServicesPage">
+        <ShellContent ContentTemplate="{DataTemplate views:ServicesPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="🏢 Міста" Route="CitiesPage">
+    <ShellContent ContentTemplate="{DataTemplate views:CitiesPage}" />
+</FlyoutItem>
+    <FlyoutItem Title="👥 Мешканці" Route="TenantsPage">
+        <ShellContent ContentTemplate="{DataTemplate views:TenantsPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="📄 Особові рахунки" Route="AccountsPage">
+        <ShellContent ContentTemplate="{DataTemplate views:AccountsPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="🧮 Зведений звіт" Route="BillingPage">
+        <ShellContent ContentTemplate="{DataTemplate views:BillingPage}" />
+    </FlyoutItem>
+</Shell>
